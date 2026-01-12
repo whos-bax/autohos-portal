@@ -1,6 +1,6 @@
 export function CTABanner() {
   return (
-    <section className="py-10 lg:py-16 px-4 lg:px-8 bg-gradient-to-r from-blue-600 to-blue-700">
+    <section className="py-10 pb-24 lg:py-16 lg:pb-16 px-4 lg:px-8 bg-gradient-to-r from-blue-600 to-blue-700">
       <div className="max-w-[1400px] mx-auto text-center text-white">
         <h2 className="text-2xl lg:text-3xl font-bold mb-3">
           정비소 사장님이신가요?

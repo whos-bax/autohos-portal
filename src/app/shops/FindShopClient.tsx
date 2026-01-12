@@ -28,7 +28,7 @@ export function FindShopClient() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 검색 헤더 */}
-      <div className="bg-white border-b sticky top-[57px] z-40">
+      <div className="bg-white border-b border-gray-100 sticky top-[57px] z-40">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8 py-4">
           <div className="flex gap-3">
             <div className="flex-1 relative">
@@ -70,7 +70,7 @@ export function FindShopClient() {
         <div className="flex gap-6">
           {/* PC 좌측 필터 사이드바 */}
           <aside className="hidden lg:block w-64 shrink-0">
-            <div className="bg-white rounded-2xl p-5 shadow-sm border sticky top-[140px]">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 sticky top-[140px]">
               <h3 className="font-semibold text-gray-900 mb-4">필터</h3>
 
               <div className="space-y-3">
@@ -135,7 +135,7 @@ export function FindShopClient() {
           {/* 우측 메인 영역 */}
           <div className="flex-1 min-w-0">
             {/* 지도 */}
-            <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl h-64 lg:h-80 mb-6 flex items-center justify-center relative overflow-hidden border">
+            <div className="bg-gradient-to-br from-blue-50 to-green-50 rounded-2xl h-64 lg:h-80 mb-6 flex items-center justify-center relative overflow-hidden border border-gray-200">
               <div className="text-center">
                 <MapPin className="w-12 h-12 text-blue-500 mx-auto mb-2" />
                 <span className="text-gray-600 font-medium">지도 영역</span>
@@ -166,7 +166,7 @@ export function FindShopClient() {
                 <Link
                   key={shop.id}
                   href={`/shops/${shop.id}`}
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm border hover:shadow-xl transition-all duration-300 group"
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="aspect-[16/10] bg-gray-200 relative overflow-hidden">
                     <Image

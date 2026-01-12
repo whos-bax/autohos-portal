@@ -218,7 +218,7 @@ export function HeroSection() {
       </section>
 
       {/* 모바일 통계 */}
-      <section className="lg:hidden bg-white border-b">
+      <section className="lg:hidden bg-white border-b border-gray-100">
         <div className="max-w-[1400px] mx-auto px-4 py-6">
           <div className="grid grid-cols-3 gap-4">
             {[

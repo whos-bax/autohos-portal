@@ -34,4 +34,26 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
   }
+
+  /* Coin flip animation for loading */
+  .perspective-500 {
+    perspective: 500px;
+  }
+
+  .animate-coin-flip {
+    animation: coinFlip 1.2s ease-in-out infinite;
+    transform-style: preserve-3d;
+  }
+
+  @keyframes coinFlip {
+    0% {
+      transform: rotateY(0deg);
+    }
+    50% {
+      transform: rotateY(180deg);
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
 }

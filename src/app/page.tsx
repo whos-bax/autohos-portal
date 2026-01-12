@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { HeroSection } from "@/components/home/HeroSection";
 import { PopularCars } from "@/components/home/PopularCars";
+import { TopShops } from "@/components/home/TopShops";
 import { ServiceIntro } from "@/components/home/ServiceIntro";
-import { CTABanner } from "@/components/home/CTABanner";
 
 export const metadata: Metadata = {
   title: "오토호스 - 차량 정비 데이터 포털",
@@ -20,8 +20,8 @@ export default function HomePage() {
     <>
       <HeroSection />
       <PopularCars />
+      <TopShops />
       <ServiceIntro />
-      <CTABanner />
     </>
   );
 }

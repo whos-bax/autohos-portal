@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -15,6 +14,7 @@ import {
   Shield,
   CheckCircle,
   User,
+  Wrench,
 } from "lucide-react";
 import { Shop } from "@/types";
 
@@ -69,8 +69,6 @@ const reviews = [
 ];
 
 export function ShopDetailClient({ shop }: ShopDetailClientProps) {
-  const [activeTab, setActiveTab] = useState("info");
-
   return (
     <div>
       {/* 상단 이미지 */}
@@ -113,21 +111,21 @@ export function ShopDetailClient({ shop }: ShopDetailClientProps) {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
+              <button className="p-2 text-gray-400 hover:text-red-500 transition-colors cursor-pointer">
                 <Heart className="w-6 h-6" />
               </button>
-              <button className="p-2 text-gray-400 hover:text-blue-500 transition-colors">
+              <button className="p-2 text-gray-400 hover:text-blue-500 transition-colors cursor-pointer">
                 <Share2 className="w-6 h-6" />
               </button>
             </div>
           </div>
 
           <div className="flex gap-3">
-            <button className="flex-1 bg-blue-600 text-white py-3 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+            <button className="flex-1 bg-blue-600 text-white py-3 rounded-xl font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 cursor-pointer">
               <Phone className="w-5 h-5" />
               전화하기
             </button>
-            <button className="flex-1 border-2 border-blue-600 text-blue-600 py-3 rounded-xl font-medium hover:bg-blue-50 transition-colors flex items-center justify-center gap-2">
+            <button className="flex-1 border-2 border-blue-600 text-blue-600 py-3 rounded-xl font-medium hover:bg-blue-50 transition-colors flex items-center justify-center gap-2 cursor-pointer">
               <Calendar className="w-5 h-5" />
               예약하기
             </button>
@@ -135,39 +133,17 @@ export function ShopDetailClient({ shop }: ShopDetailClientProps) {
         </div>
       </div>
 
-      {/* 탭 네비게이션 */}
-      <div className="bg-white border-b mt-4 sticky top-[57px] z-40">
-        <div className="max-w-5xl mx-auto px-4 lg:px-8">
-          <div className="flex gap-6 overflow-x-auto">
-            {[
-              { id: "info", label: "정보" },
-              { id: "history", label: "최근 정비" },
-              { id: "price", label: "가격 정보" },
-              { id: "review", label: "리뷰" },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`py-4 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
-                  activeTab === tab.id
-                    ? "border-blue-600 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* 컨텐츠 */}
-      <div className="max-w-5xl mx-auto px-4 lg:px-8 py-6">
-        {activeTab === "info" && (
-          <div className="grid lg:grid-cols-3 gap-6">
+      {/* 컨텐츠 - 스크롤 방식 */}
+      <div className="max-w-5xl mx-auto px-4 lg:px-8 py-8 space-y-8">
+        {/* 기본 정보 섹션 */}
+        <section>
+          <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-blue-600" />
+            기본 정보
+          </h2>
+          <div className="grid lg:grid-cols-3 gap-4">
             <div className="lg:col-span-2 space-y-4">
-              <div className="bg-white rounded-2xl p-5 shadow-sm border">
-                <h3 className="font-semibold text-gray-900 mb-4">기본 정보</h3>
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-gray-400 mt-0.5" />
@@ -175,7 +151,7 @@ export function ShopDetailClient({ shop }: ShopDetailClientProps) {
                       <div className="text-gray-900">
                         서울특별시 {shop.area} 123-45
                       </div>
-                      <button className="text-blue-600 text-sm hover:underline">
+                      <button className="text-blue-600 text-sm hover:underline cursor-pointer">
                         지도에서 보기
                       </button>
                     </div>
@@ -200,8 +176,8 @@ export function ShopDetailClient({ shop }: ShopDetailClientProps) {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-5 shadow-sm border">
-                <h3 className="font-semibold text-gray-900 mb-4">전문 분야</h3>
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+                <h3 className="font-semibold text-gray-900 mb-3">전문 분야</h3>
                 <div className="flex flex-wrap gap-2">
                   {[
                     shop.specialty,
@@ -235,7 +211,7 @@ export function ShopDetailClient({ shop }: ShopDetailClientProps) {
                 </p>
               </div>
 
-              <div className="bg-white rounded-2xl p-5 shadow-sm border">
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
                 <h3 className="font-semibold text-gray-900 mb-2">
                   이 정비소의 장점
                 </h3>
@@ -253,133 +229,143 @@ export function ShopDetailClient({ shop }: ShopDetailClientProps) {
               </div>
             </div>
           </div>
-        )}
+        </section>
 
-        {activeTab === "history" && (
-          <div className="space-y-4">
-            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4">
-              <div className="text-sm text-blue-700">
-                최근 30일간 <strong>127대</strong>의 차량을 정비했습니다
-              </div>
+        {/* 최근 정비 섹션 */}
+        <section>
+          <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <Wrench className="w-5 h-5 text-blue-600" />
+            최근 정비
+          </h2>
+          <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 mb-4">
+            <div className="text-sm text-blue-700">
+              최근 30일간 <strong>127대</strong>의 차량을 정비했습니다
             </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              {repairHistory.map((record, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-2xl p-4 shadow-sm border"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-gray-900">
-                      {record.car}
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {repairHistory.map((record, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-medium text-gray-900">
+                    {record.car}
+                  </span>
+                  <span className="text-sm text-gray-500">{record.date}</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {record.items.map((item, j) => (
+                    <span
+                      key={j}
+                      className="bg-gray-100 text-gray-600 text-sm px-2.5 py-1 rounded-lg"
+                    >
+                      {item}
                     </span>
-                    <span className="text-sm text-gray-500">{record.date}</span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 가격 정보 섹션 */}
+        <section>
+          <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <span className="w-5 h-5 text-blue-600 flex items-center justify-center font-bold">₩</span>
+            가격 정보
+          </h2>
+          <p className="text-sm text-gray-500 mb-4">
+            실제 정비 데이터 기반 평균 가격입니다
+          </p>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-100">
+                <tr>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600">
+                    정비 항목
+                  </th>
+                  <th className="text-right py-3 px-4 font-medium text-gray-600">
+                    평균 가격
+                  </th>
+                  <th className="text-right py-3 px-4 font-medium text-gray-600 hidden md:table-cell">
+                    가격 범위
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {priceList.map((item, i) => (
+                  <tr key={i} className="hover:bg-gray-50">
+                    <td className="py-4 px-4 font-medium text-gray-900">
+                      {item.item}
+                    </td>
+                    <td className="py-4 px-4 text-right font-semibold text-gray-900">
+                      {item.price}원
+                    </td>
+                    <td className="py-4 px-4 text-right text-sm text-gray-500 hidden md:table-cell">
+                      {item.range}원
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* 리뷰 섹션 */}
+        <section>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
+              <Star className="w-5 h-5 text-blue-600" />
+              리뷰
+              <span className="text-blue-600 ml-1">{shop.reviews}개</span>
+            </h2>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 cursor-pointer">
+              리뷰 작성
+            </button>
+          </div>
+          <div className="flex items-center gap-2 mb-4">
+            <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+            <span className="text-2xl font-bold">{shop.rating}</span>
+            <span className="text-gray-500">/ 5.0</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {reviews.map((review, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                      <User className="w-5 h-5 text-gray-400" />
+                    </div>
+                    <div>
+                      <div className="font-medium text-gray-900">
+                        {review.user}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {review.car} · {review.date}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    {record.items.map((item, j) => (
-                      <span
-                        key={j}
-                        className="bg-gray-100 text-gray-600 text-sm px-2.5 py-1 rounded-lg"
-                      >
-                        {item}
-                      </span>
+                  <div className="flex items-center">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-200"}`}
+                      />
                     ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {activeTab === "price" && (
-          <div className="space-y-4">
-            <p className="text-sm text-gray-500">
-              실제 정비 데이터 기반 평균 가격입니다
-            </p>
-
-            <div className="bg-white rounded-2xl shadow-sm border overflow-hidden">
-              <table className="w-full">
-                <thead className="bg-gray-50 border-b">
-                  <tr>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">
-                      정비 항목
-                    </th>
-                    <th className="text-right py-3 px-4 font-medium text-gray-600">
-                      평균 가격
-                    </th>
-                    <th className="text-right py-3 px-4 font-medium text-gray-600 hidden md:table-cell">
-                      가격 범위
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y">
-                  {priceList.map((item, i) => (
-                    <tr key={i} className="hover:bg-gray-50">
-                      <td className="py-4 px-4 font-medium text-gray-900">
-                        {item.item}
-                      </td>
-                      <td className="py-4 px-4 text-right font-semibold text-gray-900">
-                        {item.price}원
-                      </td>
-                      <td className="py-4 px-4 text-right text-sm text-gray-500 hidden md:table-cell">
-                        {item.range}원
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-
-        {activeTab === "review" && (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
-                <span className="text-2xl font-bold">{shop.rating}</span>
-                <span className="text-gray-500">({shop.reviews}개)</span>
+                <p className="text-gray-700">{review.content}</p>
               </div>
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">
-                리뷰 작성
-              </button>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              {reviews.map((review, i) => (
-                <div
-                  key={i}
-                  className="bg-white rounded-2xl p-4 shadow-sm border"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-gray-400" />
-                      </div>
-                      <div>
-                        <div className="font-medium text-gray-900">
-                          {review.user}
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          {review.car} · {review.date}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-4 h-4 ${i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-200"}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-gray-700">{review.content}</p>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
-        )}
+          <button className="w-full mt-4 py-3 border border-gray-200 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors cursor-pointer">
+            리뷰 더보기
+          </button>
+        </section>
       </div>
     </div>
   );

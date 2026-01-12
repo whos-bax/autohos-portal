@@ -42,28 +42,28 @@ const commonIssues: {
 
 const recommendedShops = [
   {
-    name: "모드게러지",
+    name: "블루오토 역삼점",
     area: "강남구",
     rating: 4.8,
     specialty: "수입차/현대 전문",
     count: 234,
   },
   {
-    name: "태영자동차",
+    name: "카닥터 서초점",
     area: "서초구",
     rating: 4.7,
     specialty: "엔진 전문",
     count: 189,
   },
   {
-    name: "카서비스샵",
+    name: "퍼스트모터스",
     area: "송파구",
     rating: 4.9,
     specialty: "종합 정비",
     count: 156,
   },
   {
-    name: "오일웍스",
+    name: "스피드케어 논현점",
     area: "강남구",
     rating: 4.6,
     specialty: "오일/소모품",
@@ -139,7 +139,7 @@ export function CarDetailClient({
       </section>
 
       {/* 탭 네비게이션 */}
-      <div className="bg-white border-b sticky top-[57px] z-40">
+      <div className="bg-white border-b border-gray-100 sticky top-[57px] z-40">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
           <div className="flex gap-4 lg:gap-8 overflow-x-auto">
             {[
@@ -172,9 +172,9 @@ export function CarDetailClient({
               <h2 className="text-lg font-semibold text-gray-900">
                 정비 주기 및 예상 비용
               </h2>
-              <div className="bg-white rounded-2xl shadow-sm border overflow-hidden">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <table className="w-full">
-                  <thead className="bg-gray-50 border-b">
+                  <thead className="bg-gray-50 border-b border-gray-100">
                     <tr>
                       <th className="text-left py-3 px-4 text-sm font-medium text-gray-600">
                         정비 항목
@@ -231,7 +231,7 @@ export function CarDetailClient({
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-5 shadow-sm border">
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
                 <h3 className="font-semibold text-gray-900 mb-3">
                   {model} 오너 커뮤니티
                 </h3>
@@ -247,7 +247,7 @@ export function CarDetailClient({
                 </Link>
               </div>
 
-              <div className="bg-white rounded-2xl p-5 shadow-sm border">
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
                 <h3 className="font-semibold text-gray-900 mb-3">
                   전문 정비소 찾기
                 </h3>
@@ -268,7 +268,7 @@ export function CarDetailClient({
 
         {activeTab === "cost" && (
           <div className="max-w-4xl space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border">
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
               <h2 className="text-lg font-semibold text-gray-900 mb-6">
                 주행거리별 예상 정비 비용
               </h2>
@@ -323,7 +323,7 @@ export function CarDetailClient({
             <h2 className="text-lg font-semibold text-gray-900">
               {model} 주요 이슈 현황
             </h2>
-            <div className="bg-white rounded-2xl shadow-sm border divide-y">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 divide-y divide-gray-100">
               {commonIssues.map((issue, i) => (
                 <div key={i} className="p-5">
                   <div className="flex items-center justify-between mb-3">
@@ -375,7 +375,7 @@ export function CarDetailClient({
               {recommendedShops.map((shop, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl p-5 shadow-sm border hover:shadow-lg transition-shadow"
+                  className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div>

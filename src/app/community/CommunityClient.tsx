@@ -28,7 +28,7 @@ export function CommunityClient() {
   return (
     <div>
       {/* 헤더 */}
-      <section className="bg-white border-b">
+      <section className="bg-white border-b border-gray-100">
         <div className="max-w-[1400px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900">
             커뮤니티
@@ -43,7 +43,7 @@ export function CommunityClient() {
         <div className="flex gap-8">
           {/* PC 좌측 사이드바 */}
           <aside className="hidden lg:block w-64 shrink-0">
-            <div className="bg-white rounded-2xl p-5 shadow-sm border sticky top-[100px]">
+            <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 sticky top-[100px]">
               <h3 className="font-semibold text-gray-900 mb-4">카테고리</h3>
               <div className="space-y-1">
                 {categories.map((cat, i) => (
@@ -122,7 +122,7 @@ export function CommunityClient() {
               {filteredPosts.map((post, i) => (
                 <div
                   key={i}
-                  className="bg-white rounded-2xl p-4 lg:p-5 shadow-sm border hover:shadow-md transition-shadow cursor-pointer"
+                  className="bg-white rounded-2xl p-4 lg:p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer"
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <span className="bg-gray-100 text-gray-600 text-xs px-2.5 py-1 rounded-lg font-medium">

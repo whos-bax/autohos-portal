@@ -1,7 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { PageTransitionProvider } from "@/components/layout/PageTransition";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { CTABanner } from "@/components/home/CTABanner";
 
 export const metadata: Metadata = {
   title: {
@@ -97,11 +101,17 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon.svg" />
       </head>
       <body className="antialiased">
-        <div className="min-h-screen bg-gray-50">
-          <Header />
-          <main className="pb-20 lg:pb-0">{children}</main>
-          <MobileNav />
-        </div>
+        <Suspense fallback={null}>
+          <PageTransitionProvider>
+            <ScrollToTop />
+            <div className="min-h-screen bg-gray-50 flex flex-col">
+              <Header />
+              <main className="flex-1 pb-20 lg:pb-0">{children}</main>
+              <CTABanner />
+              <MobileNav />
+            </div>
+          </PageTransitionProvider>
+        </Suspense>
       </body>
     </html>
   );
