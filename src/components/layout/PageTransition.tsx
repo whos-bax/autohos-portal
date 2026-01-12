@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback, createContext, useContext } from "react";
+import { useEffect, useState, useCallback, useRef, createContext, useContext } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 // Context for loading state
@@ -15,6 +15,14 @@ const LoadingContext = createContext<{
 });
 
 export const useLoading = () => useContext(LoadingContext);
+
+// 디테일 페이지인지 확인 (데이터 fetch가 필요한 페이지)
+const isDetailPage = (href: string) => {
+  // /cars/[brand]/[model] 또는 /shops/[id] 패턴
+  const carDetailPattern = /^\/cars\/[^/]+\/[^/]+$/;
+  const shopDetailPattern = /^\/shops\/\d+$/;
+  return carDetailPattern.test(href) || shopDetailPattern.test(href);
+};
 
 // Progress bar component
 function ProgressBar({ isLoading }: { isLoading: boolean }) {
@@ -72,21 +80,17 @@ function ProgressBar({ isLoading }: { isLoading: boolean }) {
 }
 
 // Spinner overlay component with coin-flip favicon animation
-function LoadingOverlay({ isLoading }: { isLoading: boolean }) {
+function LoadingOverlay({ isLoading, showOverlay }: { isLoading: boolean; showOverlay: boolean }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-
-    if (isLoading) {
-      // 300ms 후에 오버레이 표시 (빠른 전환 시 깜빡임 방지)
-      timer = setTimeout(() => setVisible(true), 150);
+    if (isLoading && showOverlay) {
+      // 디테일 페이지면 바로 표시
+      setVisible(true);
     } else {
       setVisible(false);
     }
-
-    return () => clearTimeout(timer);
-  }, [isLoading]);
+  }, [isLoading, showOverlay]);
 
   if (!visible) return null;
 
@@ -126,15 +130,37 @@ function LoadingOverlay({ isLoading }: { isLoading: boolean }) {
 // Provider component
 export function PageTransitionProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const minLoadingTimeRef = useRef<NodeJS.Timeout | null>(null);
+  const loadingStartTimeRef = useRef<number>(0);
 
   const startLoading = useCallback(() => setIsLoading(true), []);
   const stopLoading = useCallback(() => setIsLoading(false), []);
 
   // Stop loading when route changes complete
   useEffect(() => {
-    setIsLoading(false);
+    const minLoadingTime = 600; // 최소 로딩 시간 (ms)
+    const elapsed = Date.now() - loadingStartTimeRef.current;
+    const remaining = Math.max(0, minLoadingTime - elapsed);
+
+    if (remaining > 0 && showOverlay) {
+      // 최소 로딩 시간이 지나지 않았으면 대기
+      minLoadingTimeRef.current = setTimeout(() => {
+        setIsLoading(false);
+        setShowOverlay(false);
+      }, remaining);
+    } else {
+      setIsLoading(false);
+      setShowOverlay(false);
+    }
+
+    return () => {
+      if (minLoadingTimeRef.current) {
+        clearTimeout(minLoadingTimeRef.current);
+      }
+    };
   }, [pathname, searchParams]);
 
   // Intercept link clicks to start loading
@@ -154,6 +180,12 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
           // Check if it's an internal link
           if (href.startsWith("/") || href.startsWith(window.location.origin)) {
             setIsLoading(true);
+            loadingStartTimeRef.current = Date.now();
+
+            // 디테일 페이지면 오버레이 표시
+            if (isDetailPage(href)) {
+              setShowOverlay(true);
+            }
           }
         }
       }
@@ -166,7 +198,7 @@ export function PageTransitionProvider({ children }: { children: React.ReactNode
   return (
     <LoadingContext.Provider value={{ isLoading, startLoading, stopLoading }}>
       <ProgressBar isLoading={isLoading} />
-      <LoadingOverlay isLoading={isLoading} />
+      <LoadingOverlay isLoading={isLoading} showOverlay={showOverlay} />
       {children}
     </LoadingContext.Provider>
   );
