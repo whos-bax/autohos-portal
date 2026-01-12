@@ -47,21 +47,12 @@ export const metadata: Metadata = {
     title: "오토호스 - 차량 정비 데이터 포털",
     description:
       "200만건 실제 정비 데이터 기반으로 차량별 정비 비용, 주기, 전문 정비소 정보를 확인하세요.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "오토호스 - 차량 정비 데이터 포털",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "오토호스 - 차량 정비 데이터 포털",
     description:
       "200만건 실제 정비 데이터 기반으로 차량별 정비 비용, 주기, 전문 정비소 정보를 확인하세요.",
-    images: ["/og-image.png"],
   },
   robots: {
     index: true,
